@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "scheme": "acme",
+    "web": {
+      "bundler": "metro"
+    },
+    "name": "quokka-mobile",
+    "slug": "quokka-mobile"
+  }
+}
