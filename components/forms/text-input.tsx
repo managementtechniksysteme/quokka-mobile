@@ -96,6 +96,7 @@ export const TextInput = ({
                 style={{ color: inputColor }}
                 placeholderTextColor={inputPlaceholderTextColor}
                 selectionColor={inputSelectionColor}
+                cursorColor={inputSelectionColor}
                 editable={disabled}
                 selectTextOnFocus={disabled}
                 left={left}

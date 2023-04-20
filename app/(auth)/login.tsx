@@ -25,6 +25,7 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
+import colors from "tailwindcss/colors";
 
 export default function LoginScreen() {
   const notification = useNotification();
@@ -257,6 +258,8 @@ export default function LoginScreen() {
                   autoCapitalize='none'
                   autoComplete='username'
                   autoCorrect={false}
+                  selectionColor={colors.green['600']}
+                  cursorColor={colors.green['600']}
                   disabled={requireOtp}
                   error={!!errors.username}
                   onChangeText={(value) => onChange(value)}
@@ -276,6 +279,8 @@ export default function LoginScreen() {
                   autoComplete='password'
                   autoCorrect={false}
                   secureTextEntry={hidePassword}
+                  selectionColor={colors.green['600']}
+                  cursorColor={colors.green['600']}
                   disabled={requireOtp}
                   error={!!errors.password}
                   onChangeText={(value) => onChange(value)}
@@ -307,6 +312,8 @@ export default function LoginScreen() {
                       autoCorrect={false}
                       keyboardType='number-pad'
                       maxLength={6}
+                      selectionColor={colors.green['600']}
+                      cursorColor={colors.green['600']}
                       error={!!errors.one_time_password}
                       onChangeText={(value) => onChange(value)}
                       onBlur={onBlur}
