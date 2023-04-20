@@ -212,6 +212,8 @@ export default function LoginScreen() {
           });
           return;
         }
+
+        login(data.token, data.refresh_token);
       })
       .catch((error) => {
         notification.showNotification(
