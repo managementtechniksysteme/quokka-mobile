@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Button, HelperText, Switch, TextInput } from 'react-native-paper';
-import { useRef, useState } from 'react';
+import {useCallback, useRef, useState} from 'react';
 import { Link } from 'expo-router';
 import authBackground from '../../assets/images/auth_background.jpg';
 import { z } from 'zod';
@@ -26,6 +26,7 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 import colors from "tailwindcss/colors";
+import * as SplashScreen from "expo-splash-screen";
 
 export default function LoginScreen() {
   const notification = useNotification();
@@ -36,7 +37,7 @@ export default function LoginScreen() {
   const [animatedViewY, setAnimatedViewY] = useState(0);
   const keyboardPadding = useSharedValue(0);
 
-  let viewRef = useRef<View>(null);
+  const viewRef = useRef<View>(null);
 
   const measureAnimatedViewPosition = (event: LayoutChangeEvent) => {
     viewRef.current?.measure((y, pageY, height) => {

@@ -3,8 +3,7 @@ import {Slot, useRouter} from 'expo-router';
 import {Provider as AuthProvider, Tokens} from "../context/auth";
 import {Provider as UserProvider} from "../context/user";
 import * as SecureStore from "expo-secure-store";
-import {useEffect, useState} from "react";
-import {SplashScreen} from "../components/splash-screen";
+import {useCallback, useEffect, useState} from "react";
 import {QueryClient, QueryClientProvider} from "react-query";
 import i18next from "i18next";
 import {z} from "zod";
@@ -17,6 +16,8 @@ import colors from "tailwindcss/colors";
 import {Provider as NotificationProvider} from '../context/notification'
 import {refreshTokens} from "../api/config/client";
 import {prefetchUser} from "../api/userEndpoint";
+import * as ExpoSplashScreen from 'expo-splash-screen';
+import {SplashScreen} from "../components/splash-screen";
 
 const MIN_SPLASH_DURATION = 3000;
 
@@ -67,7 +68,6 @@ const theme = {
 };
 
 export default function Layout() {
-  const router = useRouter();
   const queryClient = new QueryClient();
 
   const [appIsReady, setAppIsReady] = useState(false);
@@ -103,6 +103,7 @@ export default function Layout() {
   }
 
   const prepareApp = async () => {
+    await ExpoSplashScreen.preventAutoHideAsync().catch();
     setAppIsReady(false);
 
     await Promise.all([
@@ -110,6 +111,7 @@ export default function Layout() {
       new Promise(r => setTimeout(r, MIN_SPLASH_DURATION))
     ]);
 
+    await ExpoSplashScreen.hideAsync();
     setAppIsReady(true);
   }
 
