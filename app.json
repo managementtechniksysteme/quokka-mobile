@@ -1,5 +1,8 @@
 {
   "expo": {
+    "android": {
+      "package": "org.managementtechniksysteme.quokkamobile"
+    },
     "ios": {
       "config": {
         "usesNonExemptEncryption": false
@@ -14,12 +17,20 @@
     "description": "Die Quokka Projektmanagement Software für Android und iOS.",
     "version": "0.0.1",
     "icon": "assets/images/icon.png",
+    "splash": {
+      "image": "assets/images/splash_background.jpg",
+      "resizeMode": "cover",
+      "backgroundColor": "#16A34A"
+    },
     "orientation": "portrait",
     "primaryColor": "#16A34A",
     "assetBundlePatterns": [
       "assets/images/*"
     ],
     "extra": {
+      "eas": {
+        "projectId": "fe29bab9-1536-412f-ac37-049a10a465f4"
+      },
       "versionCommitHash": "156b2c5"
     }
   }
