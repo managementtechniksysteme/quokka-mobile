@@ -3,6 +3,7 @@ import {useAuth} from "../context/auth";
 import {QueryClient, useQuery} from "react-query";
 import {useApiClient} from "./config/client";
 import {API_BASE_URL, commonHeaders} from "./config/config";
+import {UserPermissionsSchema} from "./config/permissions";
 
 const UserSettingsSchema = z.object({
   'accounting_filter_default_days': z.number().nullable()
@@ -15,7 +16,7 @@ const UserDataSchema = z.object({
   avatar_colour: z.string(),
   first_name: z.string(),
   last_name: z.string(),
-  permissions: z.array(z.string()).nullable(),
+  permissions: UserPermissionsSchema.nullable(),
   settings: UserSettingsSchema,
   created_at: z.string().transform((value) => new Date(value)),
   updated_at: z.string().transform((value) => new Date(value)),

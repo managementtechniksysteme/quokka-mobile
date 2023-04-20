@@ -1,15 +1,16 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
 import { User } from '../api/userEndpoint';
+import {Permission} from "../api/config/permissions";
 
 const DEFAULT_DURATION = 5000;
 
 export type UserContext = {
   user: User;
   setUser: (user: User) => void;
-  can: (permissions: string | string[]) => boolean;
-  canAny: (permissions: string | string[]) => boolean;
-  cannot: (permissions: string | string[]) => boolean;
-  cannotAny: (permissions: string | string[]) => boolean;
+  can: (permissions: Permission | Permission[]) => boolean;
+  canAny: (permissions: Permission | Permission[]) => boolean;
+  cannot: (permissions: Permission | Permission[]) => boolean;
+  cannotAny: (permissions: Permission | Permission[]) => boolean;
 };
 
 const UserContext = createContext<UserContext>({} as UserContext);
@@ -26,7 +27,7 @@ type UserProviderProps = {
 export function Provider({ initialUser, children }: UserProviderProps) {
   const [user, setUser] = useState(initialUser || ({} as User));
 
-  const can = (permissions: string | string[]) => {
+  const can = (permissions: Permission | Permission[]) => {
     permissions = [permissions].flat();
 
     return permissions.every((permission) =>
@@ -34,7 +35,7 @@ export function Provider({ initialUser, children }: UserProviderProps) {
     );
   };
 
-  const canAny = (permissions: string | string[]) => {
+  const canAny = (permissions: Permission | Permission[]) => {
     permissions = [permissions].flat();
 
     return permissions.some((permission) =>
@@ -42,7 +43,7 @@ export function Provider({ initialUser, children }: UserProviderProps) {
     );
   };
 
-  const cannot = (permissions: string | string[]) => {
+  const cannot = (permissions: Permission | Permission[]) => {
     permissions = [permissions].flat();
 
     return permissions.every(
@@ -50,7 +51,7 @@ export function Provider({ initialUser, children }: UserProviderProps) {
     );
   };
 
-  const cannotAny = (permissions: string | string[]) => {
+  const cannotAny = (permissions: Permission | Permission[]) => {
     permissions = [permissions].flat();
 
     return permissions.some(
