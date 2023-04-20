@@ -1,10 +1,23 @@
 {
   "expo": {
+    "ios": {
+      "config": {
+        "usesNonExemptEncryption": false
+      }
+    },
     "scheme": "acme",
     "web": {
       "bundler": "metro"
     },
-    "name": "quokka-mobile",
-    "slug": "quokka-mobile"
+    "name": "Quokka Mobile",
+    "slug": "quokka-mobile",
+    "description": "Die Quokka Projektmanagement Software für Android und iOS.",
+    "version": "0.0.1",
+    "icon": "assets/images/icon.png",
+    "orientation": "portrait",
+    "primaryColor": "#16A34A",
+    "assetBundlePatterns": [
+      "assets/images/*"
+    ]
   }
 }

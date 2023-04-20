@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "strict": true
+  },
+  "extends": "expo/tsconfig.base",
+  "include": [
+    "app.d.ts",
+    "index.ts",
+    "api/**/*",
+    "app/**/*",
+    "assets/**/*",
+    "components/**/*",
+    "context/**/*",
+    "utils/**/*"
+  ]
+}

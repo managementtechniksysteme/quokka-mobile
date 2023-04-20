@@ -1,0 +1,10 @@
+{
+  "build": {
+    "apk": {
+      "android": {
+        "gradleCommand": ":app:assembleRelease"
+      }
+    },
+    "production": {}
+  }
+}
