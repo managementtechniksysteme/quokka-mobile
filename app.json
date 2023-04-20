@@ -18,6 +18,9 @@
     "primaryColor": "#16A34A",
     "assetBundlePatterns": [
       "assets/images/*"
-    ]
+    ],
+    "extra": {
+      "versionCommitHash": "156b2c5"
+    }
   }
 }

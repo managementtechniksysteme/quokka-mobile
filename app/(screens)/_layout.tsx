@@ -10,6 +10,7 @@ import { LogoutDrawerItem } from '../../components/navigation/logout-drawer-item
 import * as React from 'react';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import {useUser} from "../../context/user";
+import {VersionDrawerItem} from "../../components/navigation/version-drawer-item";
 
 export default function Layout() {
   const {canAny} = useUser();
@@ -99,6 +100,7 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
       <UserDrawerItem />
       <DrawerItemList {...props} />
       <LogoutDrawerItem />
+      <VersionDrawerItem />
     </DrawerContentScrollView>
   );
 };

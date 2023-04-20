@@ -3,7 +3,7 @@ import { ExpoConfig, ConfigContext } from 'expo/config';
 module.exports = ({ config }: ConfigContext): ExpoConfig => {
   const commonConfig = {
     slug: 'quokka-mobile',
-    name: 'quokka-mobile',
+    name: 'Quokka Mobile',
   };
 
   if (process.env.ENVIRONMENT === 'production') {
@@ -11,6 +11,7 @@ module.exports = ({ config }: ConfigContext): ExpoConfig => {
       ...config,
       ...commonConfig,
       extra: {
+        ...config.extra,
         apiUrl: 'https://quokka.linkto.ms/api',
       }
     };
@@ -19,6 +20,7 @@ module.exports = ({ config }: ConfigContext): ExpoConfig => {
       ...config,
       ...commonConfig,
       extra: {
+        ...config.extra,
         apiUrl: process.env.API_URL || 'http://192.168.100.10:8000/api',
       }
     }
