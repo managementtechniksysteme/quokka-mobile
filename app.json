@@ -3,14 +3,16 @@
     "android": {
       "package": "org.managementtechniksysteme.quokkamobile",
       "adaptiveIcon": {
-        "foregroundImage": "assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#16A34A"
       }
     },
     "ios": {
+      "bundleIdentifier": "org.managementtechniksysteme.quokkamobile",
       "config": {
         "usesNonExemptEncryption": false
-      }
+      },
+      "icon": "./assets/images/ios-icon.png"
     },
     "scheme": "acme",
     "web": {
@@ -19,10 +21,10 @@
     "name": "Quokka Mobile",
     "slug": "quokka-mobile",
     "description": "Die Quokka Projektmanagement Software für Android und iOS.",
-    "version": "0.0.1",
-    "icon": "assets/images/icon.png",
+    "version": "0.0.2",
+    "icon": "./assets/images/icon.png",
     "splash": {
-      "image": "assets/images/splash.png",
+      "image": "./assets/images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#16A34A"
     },
@@ -35,7 +37,7 @@
       [
         "expo-updates",
         {
-          "username": "manuelsteiner"
+          "username": "managementtechniksysteme"
         }
       ]
     ],
@@ -49,7 +51,7 @@
       "eas": {
         "projectId": "a69959b6-248b-4142-b8c7-5222691e85b6"
       },
-      "versionCommitHash": "156b2c5"
+      "versionCommitHash": "64039f4"
     }
   }
 }

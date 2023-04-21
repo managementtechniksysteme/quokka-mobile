@@ -6,7 +6,7 @@ module.exports = ({ config }: ConfigContext): ExpoConfig => {
     name: 'Quokka Mobile',
   };
 
-  if (process.env.ENVIRONMENT === 'dev') {
+  if (process.env.ENVIRONMENT === 'development') {
     return {
       ...config,
       ...commonConfig,

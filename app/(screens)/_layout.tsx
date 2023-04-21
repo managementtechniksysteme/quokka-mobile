@@ -11,6 +11,7 @@ import * as React from 'react';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 import {useUser} from "../../context/user";
 import {VersionDrawerItem} from "../../components/navigation/version-drawer-item";
+import {UpdateDrawerItem} from "../../components/navigation/update-drawer-item";
 
 export default function Layout() {
   const {canAny} = useUser();
@@ -99,6 +100,7 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
     <DrawerContentScrollView {...props}>
       <UserDrawerItem />
       <DrawerItemList {...props} />
+      <UpdateDrawerItem />
       <LogoutDrawerItem />
       <VersionDrawerItem />
     </DrawerContentScrollView>
