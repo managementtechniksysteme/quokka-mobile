@@ -41,6 +41,7 @@
     ],
     "extra": {
       "eas": {
+        "projectId": "a69959b6-248b-4142-b8c7-5222691e85b6"
       },
       "versionCommitHash": "156b2c5"
     }
