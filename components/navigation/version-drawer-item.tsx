@@ -1,6 +1,6 @@
 import { Text, View } from 'react-native';
 import Constants from 'expo-constants';
-import Updates from 'expo-updates';
+import * as Updates from 'expo-updates';
 
 export const VersionDrawerItem = () => {
   const name = `${Constants.expoConfig?.name} ${Updates.channel === 'dev' ? 'dev' : Updates.channel === 'beta' ? 'beta' : ''}`;
