@@ -18,6 +18,11 @@ export const PaginationSchema = z.object({
     prev: z.string().nullable(),
     next: z.string().nullable(),
   }),
+  meta: z.object({
+    current_page: z.number(),
+    from: z.number().nullable(),
+    last_page: z.number(),
+  }),
 });
 
 export const SelectOptionDataSchema = z.object({

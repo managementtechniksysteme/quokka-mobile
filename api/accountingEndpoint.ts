@@ -84,15 +84,17 @@ export const useGetAccounting = (filters: AccountingFilters) => {
   return useInfiniteQuery(
     [
       'accounting', {filter: queryString}],
-    async () => {
+    async ({pageParam = 1}) => {
+      const query = queryString ? `${queryString}&page=${pageParam}` : `page=${pageParam}`;
+
       return useApiClient(
         auth,
-        `${API_BASE_URL}/accounting?${queryString}`,
+        `${API_BASE_URL}/accounting?${query}`,
         {schema: AccountingListSchema}
       );
     }, {
       getNextPageParam: lastPage => {
-        return lastPage.links.next;
+        return lastPage.meta.current_page < lastPage.meta.last_page ? lastPage.meta.current_page+1 : undefined;
       },
       keepPreviousData: true,
     });
