@@ -5,7 +5,7 @@
   "extends": "expo/tsconfig.base",
   "include": [
     "app.d.ts",
-    "index.ts",
+    "index.js",
     "api/**/*",
     "app/**/*",
     "assets/**/*",
