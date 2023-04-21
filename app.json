@@ -21,7 +21,7 @@
     "name": "Quokka Mobile",
     "slug": "quokka-mobile",
     "description": "Die Quokka Projektmanagement Software für Android und iOS.",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "icon": "./assets/images/icon.png",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -51,7 +51,7 @@
       "eas": {
         "projectId": "a69959b6-248b-4142-b8c7-5222691e85b6"
       },
-      "versionCommitHash": "076c24e"
+      "versionCommitHash": "340ef07"
     }
   }
 }
