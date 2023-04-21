@@ -1,10 +1,9 @@
 import { Text, View } from 'react-native';
-import { useUser } from '../../context/user';
-import colors from 'tailwindcss/colors';
 import Constants from 'expo-constants';
+import Updates from 'expo-updates';
 
 export const VersionDrawerItem = () => {
-  const name = Constants.expoConfig?.name;
+  const name = `${Constants.expoConfig?.name} ${Updates.channel === 'dev' ? 'dev' : Updates.channel === 'beta' ? 'beta' : ''}`;
   const version = `v${Constants.expoConfig?.version}-${Constants.expoConfig?.extra?.versionCommitHash}`;
 
   return (
