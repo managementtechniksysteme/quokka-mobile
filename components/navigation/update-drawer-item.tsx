@@ -27,7 +27,7 @@ export const UpdateDrawerItem = () => {
   };
 
   const updateEventListener = (event: UpdateEvent) => {
-    if (event.type === Updates.UpdateEventType.ERROR) {
+    if (event.type === Updates.UpdateEventType.UPDATE_AVAILABLE) {
       setUpdateAvailable(true);
     }
   };
