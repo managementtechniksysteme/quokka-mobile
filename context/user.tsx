@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from 'react';
 import { User } from '../api/userEndpoint';
-import {Permission} from "../api/config/permissions";
+import { Permission } from '../api/config/permissions';
 
 const DEFAULT_DURATION = 5000;
 

@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Button, HelperText, Switch, TextInput } from 'react-native-paper';
-import {useCallback, useRef, useState} from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { Link } from 'expo-router';
 import authBackground from '../../assets/images/auth_background.jpg';
 import { z } from 'zod';
@@ -25,8 +25,8 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
-import colors from "tailwindcss/colors";
-import * as SplashScreen from "expo-splash-screen";
+import colors from 'tailwindcss/colors';
+import * as SplashScreen from 'expo-splash-screen';
 
 export default function LoginScreen() {
   const notification = useNotification();

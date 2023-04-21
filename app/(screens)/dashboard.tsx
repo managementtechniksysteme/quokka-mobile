@@ -7,7 +7,7 @@ import { DashboardLoadingSkeleton } from '../../components/dashboard/dashboard-l
 import { useUser } from '../../context/user';
 
 export default function DashboardScreen() {
-  const {  can } = useUser();
+  const { can } = useUser();
   const { isLoading, isError, isRefetching, data, refetch } =
     useGetDashboardData();
 
@@ -40,7 +40,10 @@ export default function DashboardScreen() {
                     <View className='h-full flex-grow flex-col'>
                       <View className='mb-2 flex-row items-center gap-2'>
                         <Text className='text-slate-700'>
-                          <MaterialCommunityIcons name='clock-outline' size={32} />
+                          <MaterialCommunityIcons
+                            name='clock-outline'
+                            size={32}
+                          />
                         </Text>
                         <Text className='text-3xl uppercase tracking-wide text-slate-700'>
                           Stunden
@@ -83,7 +86,9 @@ export default function DashboardScreen() {
                 </View>
                 <View
                   className={`w-100 h-28 ${
-                    data.data.mtd_overtime === 0 ? 'bg-orange-100' : 'bg-orange-300'
+                    data.data.mtd_overtime === 0
+                      ? 'bg-orange-100'
+                      : 'bg-orange-300'
                   } rounded-xl p-5`}
                 >
                   <View className='h-full flex-row items-center'>
@@ -115,14 +120,19 @@ export default function DashboardScreen() {
                 </View>
                 <View
                   className={`w-100 h-28 ${
-                    data.data.mtd_kilometres === 0 ? 'bg-blue-100' : 'bg-blue-300'
+                    data.data.mtd_kilometres === 0
+                      ? 'bg-blue-100'
+                      : 'bg-blue-300'
                   } rounded-xl p-5`}
                 >
                   <View className='h-full flex-row items-center'>
                     <View className='h-full flex-grow flex-col'>
                       <View className='mb-2 flex-row items-center gap-2'>
                         <Text className='text-blue-700'>
-                          <MaterialCommunityIcons name='truck-outline' size={32} />
+                          <MaterialCommunityIcons
+                            name='truck-outline'
+                            size={32}
+                          />
                         </Text>
                         <Text className='text-3xl uppercase tracking-wide text-blue-700'>
                           Kilometer
@@ -153,7 +163,10 @@ export default function DashboardScreen() {
                     <View className='h-full flex-grow flex-col'>
                       <View className='mb-2 flex-row items-center gap-2'>
                         <Text className='text-green-700'>
-                          <MaterialCommunityIcons name='weather-sunny' size={32} />
+                          <MaterialCommunityIcons
+                            name='weather-sunny'
+                            size={32}
+                          />
                         </Text>
                         <Text className='text-3xl uppercase tracking-wide text-green-700'>
                           Urlaub
@@ -172,7 +185,7 @@ export default function DashboardScreen() {
                 </View>
               </View>
             )}
-            <View className='flex-col gap-3 mt-0.5'>
+            <View className='mt-0.5 flex-col gap-3'>
               <Text className='self-center text-2xl font-light tracking-wide text-slate-900'>
                 Aufgaben
               </Text>
@@ -311,7 +324,7 @@ export default function DashboardScreen() {
                 </View>
               </View>
             </View>
-            <View className='flex-col gap-3 mt-0.5'>
+            <View className='mt-0.5 flex-col gap-3'>
               <Text className='self-center text-2xl font-light tracking-wide text-slate-900'>
                 Berichte
               </Text>
@@ -336,7 +349,10 @@ export default function DashboardScreen() {
                       <Text className='text-lg tracking-wide text-blue-600'>
                         {data.data.mtd_new_service_reports} MTD
                       </Text>
-                      {can(['service-reports.view.own', 'service-reports.view.other']) && (
+                      {can([
+                        'service-reports.view.own',
+                        'service-reports.view.other',
+                      ]) && (
                         <Text className='text-lg tracking-wide text-blue-600'>
                           {data.data.new_service_reports_total} ges.
                         </Text>
@@ -369,12 +385,19 @@ export default function DashboardScreen() {
                       <Text className='text-lg tracking-wide text-blue-600'>
                         {data.data.mtd_new_additions_reports} MTD
                       </Text>
-                      {can(['additions-reports.view.own', 'additions-reports.view.involved']) && (
+                      {can([
+                        'additions-reports.view.own',
+                        'additions-reports.view.involved',
+                      ]) && (
                         <Text className='text-lg tracking-wide text-blue-600'>
                           {data.data.new_additions_reports_involved_in} bet.
                         </Text>
                       )}
-                      {can(['additions-reports.view.own', 'additions-reports.view.involved', 'additions-reports.view.other']) && (
+                      {can([
+                        'additions-reports.view.own',
+                        'additions-reports.view.involved',
+                        'additions-reports.view.other',
+                      ]) && (
                         <Text className='text-lg tracking-wide text-blue-600'>
                           {data.data.new_additions_reports_total} ges.
                         </Text>
@@ -410,7 +433,10 @@ export default function DashboardScreen() {
                       <Text className='text-lg tracking-wide text-blue-600'>
                         {data.data.mtd_new_inspection_reports} MTD
                       </Text>
-                      {can(['inspection-reports.view.own', 'inspection-reports.view.other']) && (
+                      {can([
+                        'inspection-reports.view.own',
+                        'inspection-reports.view.other',
+                      ]) && (
                         <Text className='text-lg tracking-wide text-blue-600'>
                           {data.data.new_inspection_reports_total} ges.
                         </Text>
@@ -443,12 +469,19 @@ export default function DashboardScreen() {
                       <Text className='text-lg tracking-wide text-blue-600'>
                         {data.data.mtd_new_construction_reports} MTD
                       </Text>
-                      {can(['construction-reports.view.own', 'construction-reports.view.involved']) && (
+                      {can([
+                        'construction-reports.view.own',
+                        'construction-reports.view.involved',
+                      ]) && (
                         <Text className='text-lg tracking-wide text-blue-600'>
                           {data.data.new_construction_reports_involved_in} bet.
                         </Text>
                       )}
-                      {can(['construction-reports.view.own', 'construction-reports.view.involved', 'construction-reports.view.other']) && (
+                      {can([
+                        'construction-reports.view.own',
+                        'construction-reports.view.involved',
+                        'construction-reports.view.other',
+                      ]) && (
                         <Text className='text-lg tracking-wide text-blue-600'>
                           {data.data.new_construction_reports_total} ges.
                         </Text>
@@ -484,9 +517,13 @@ export default function DashboardScreen() {
                       <Text className='text-lg tracking-wide text-blue-600'>
                         {data.data.mtd_new_flow_meter_inspection_reports} MTD
                       </Text>
-                      {can(['flow-meter-inspection-reports.view.own', 'flow-meter-inspection-reports.view.other']) && (
+                      {can([
+                        'flow-meter-inspection-reports.view.own',
+                        'flow-meter-inspection-reports.view.other',
+                      ]) && (
                         <Text className='text-lg tracking-wide text-blue-600'>
-                          {data.data.new_flow_meter_inspection_reports_total} ges.
+                          {data.data.new_flow_meter_inspection_reports_total}{' '}
+                          ges.
                         </Text>
                       )}
                     </View>
@@ -508,7 +545,10 @@ export default function DashboardScreen() {
                     <View className='h-full flex-grow flex-col'>
                       <View className='mb-2 flex-row items-center gap-2'>
                         <Text className='text-yellow-700'>
-                          <MaterialCommunityIcons name='cog-outline' size={32} />
+                          <MaterialCommunityIcons
+                            name='cog-outline'
+                            size={32}
+                          />
                         </Text>
                         <Text className='text-3xl uppercase tracking-wide text-yellow-700'>
                           Erledigbare SB
@@ -642,7 +682,8 @@ export default function DashboardScreen() {
                       </View>
                       <View className='flex-row items-center gap-4'>
                         <Text className='text-lg tracking-wide text-yellow-600'>
-                          {data.data.mtd_signed_flow_meter_inspection_reports} MTD
+                          {data.data.mtd_signed_flow_meter_inspection_reports}{' '}
+                          MTD
                         </Text>
                       </View>
                     </View>

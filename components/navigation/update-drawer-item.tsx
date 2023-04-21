@@ -1,20 +1,20 @@
 import { useAuth } from '../../context/auth';
 import { Feather } from '@expo/vector-icons';
 import { DrawerItem } from '@react-navigation/drawer';
-import {useEffect, useState} from "react";
-import * as Updates from "expo-updates";
-import {Text, View} from "react-native";
-import colors from "tailwindcss/colors";
-import {UpdateEvent} from "expo-updates";
-import {LoadingAnimation} from "../animations/loading-animation";
+import { useEffect, useState } from 'react';
+import * as Updates from 'expo-updates';
+import { Text, View } from 'react-native';
+import colors from 'tailwindcss/colors';
+import { UpdateEvent } from 'expo-updates';
+import { LoadingAnimation } from '../animations/loading-animation';
 import Animated, {
   cancelAnimation,
   Easing,
   useAnimatedStyle,
   useSharedValue,
   withRepeat,
-  withTiming
-} from "react-native-reanimated";
+  withTiming,
+} from 'react-native-reanimated';
 
 export const UpdateDrawerItem = () => {
   const [updateAvailable, setUpdateAvailable] = useState(false);
@@ -24,7 +24,7 @@ export const UpdateDrawerItem = () => {
     setUpdating(true);
     await Updates.reloadAsync().catch(() => setUpdating(false));
     setUpdating(false);
-  }
+  };
 
   const updateEventListener = (event: UpdateEvent) => {
     if (event.type === Updates.UpdateEventType.ERROR) {
@@ -47,7 +47,7 @@ export const UpdateDrawerItem = () => {
   }, [rotation.value]);
 
   useEffect(() => {
-    if(updating) {
+    if (updating) {
       rotation.value = withRepeat(
         withTiming(360, {
           duration: 1000,
@@ -58,12 +58,12 @@ export const UpdateDrawerItem = () => {
     }
   }, [updating]);
 
-  if(!updateAvailable) {
+  if (!updateAvailable) {
     return null;
   }
 
   return (
-    <View className='border-t border-slate-200 mt-1 pt-1'>
+    <View className='mt-1 border-t border-slate-200 pt-1'>
       {updating ? (
         <LoadingAnimation>
           <DrawerItem
@@ -71,7 +71,7 @@ export const UpdateDrawerItem = () => {
             inactiveTintColor={colors.green['700']}
             icon={({ color, size }) => (
               <Animated.View style={spinnerAnimation}>
-                <Feather name='refresh-cw' color={color} size={size}  />
+                <Feather name='refresh-cw' color={color} size={size} />
               </Animated.View>
             )}
             onPress={() => update()}
@@ -87,6 +87,6 @@ export const UpdateDrawerItem = () => {
           onPress={() => update()}
         />
       )}
-  </View>
+    </View>
   );
 };

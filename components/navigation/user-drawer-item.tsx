@@ -6,7 +6,7 @@ export const UserDrawerItem = () => {
   const { user } = useUser();
 
   return (
-    <View className='border-b border-slate-200 mb-1'>
+    <View className='mb-1 border-b border-slate-200'>
       <View className='mx-3 my-1 flex-row items-center p-1 pb-3'>
         <View
           className='mr-6 h-8 w-8 flex-row content-center justify-center rounded-full border'
