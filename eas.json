@@ -1,10 +1,22 @@
 {
   "build": {
-    "apk": {
+    "preview": {
+      "channel": "production"
+    },
+    "apk-preview": {
       "android": {
         "buildType": "apk"
       },
+      "channel": "apk-preview"
     },
-    "production": {}
+    "production": {
+      "channel": "production"
+    },
+    "apk-production": {
+      "android": {
+        "buildType": "apk"
+      },
+      "channel": "apk-production"
+    }
   }
 }
