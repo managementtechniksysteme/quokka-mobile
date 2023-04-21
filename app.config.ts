@@ -6,13 +6,13 @@ module.exports = ({ config }: ConfigContext): ExpoConfig => {
     name: 'Quokka Mobile',
   };
 
-  if (process.env.ENVIRONMENT === 'production') {
+  if (process.env.ENVIRONMENT === 'dev') {
     return {
       ...config,
       ...commonConfig,
       extra: {
         ...config.extra,
-        apiUrl: 'https://quokka.linkto.ms/api',
+        apiUrl: process.env.API_URL || 'http://192.168.100.10:8000/api',
       }
     };
   } else {
@@ -21,7 +21,7 @@ module.exports = ({ config }: ConfigContext): ExpoConfig => {
       ...commonConfig,
       extra: {
         ...config.extra,
-        apiUrl: process.env.API_URL || 'http://192.168.100.10:8000/api',
+        apiUrl: process.env.API_URL || 'https://quokka.linkto.ms/api',
       }
     }
   }
