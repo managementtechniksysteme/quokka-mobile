@@ -6,7 +6,7 @@ import {z} from "zod";
 
 const VehicleKilometresDataSchema = z.object({
   id: z.number(),
-  kilometres: z.number(),
+  kilometres: z.number().nullable(),
 })
 
 const VehiclesKilometresListSchema = z.object({
