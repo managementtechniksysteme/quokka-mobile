@@ -14,7 +14,7 @@ import { VersionDrawerItem } from '../../components/navigation/version-drawer-it
 import { UpdateDrawerItem } from '../../components/navigation/update-drawer-item';
 
 export default function Layout() {
-  const { canAny } = useUser();
+  const { can, canAny } = useUser();
 
   const headerTitles = {
     accounting: {
@@ -91,6 +91,14 @@ export default function Layout() {
           }}
         />
       )}
+      <Drawer.Screen
+        name='changelog'
+        options={{
+          title: 'Versionshinweise',
+          // hide changelogs from here because the version info is clickable
+          drawerItemStyle: { display: 'none' }
+        }}
+      />
     </Drawer>
   );
 }
