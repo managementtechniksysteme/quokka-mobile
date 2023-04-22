@@ -180,6 +180,10 @@ export const AccountingForm = forwardRef<
       return;
     }
 
+    if(start.getTime() >= end.getTime()) {
+      return;
+    }
+
     const minAmountMinutes =
       applicationSettingsData.data.accounting_min_amount * 60;
     const date = apiDate(new Date());
@@ -198,12 +202,6 @@ export const AccountingForm = forwardRef<
     }
 
     setValue('amount', differenceMinutes / 60);
-
-    console.log('start date', startDate.toLocaleString());
-    console.log('end date', endDate.toLocaleString());
-    console.log('start minutes', timeStartMinutes);
-    console.log('end minutes', timeEndMinutes);
-    console.log('difference minutes', differenceMinutes);
   };
 
   const autofillStart = (end: Date, amount: number) => {
@@ -255,15 +253,13 @@ export const AccountingForm = forwardRef<
   const currentAmount = watch('amount', null);
 
   useEffect(() => {
-    if (!currentAmount?.length) {
-      const amountValue = Number(currentAmount);
+    const amountValue = currentAmount ? Number(currentAmount) : null;
 
-      if (Number.isNaN(amountValue)) {
-        return;
-      }
+    if (amountValue && Number.isNaN(amountValue)) {
+      return;
     }
 
-    autofillRemainingValue(currentStart, currentEnd, currentAmount);
+    autofillRemainingValue(currentStart, currentEnd, amountValue);
   }, [currentStart, currentEnd]);
 
   const handleExtendedValidationSubmit = (data: AccountingFormSchema) => {
@@ -279,7 +275,7 @@ export const AccountingForm = forwardRef<
         setError('service_provided_started_at', {
           type: 'validation',
           message:
-            'Das Start Datum darf nur bei stundenbasierten Leistungen angegeben werden.',
+            'Das Start Datum darf nur bei stundenbasierten Leistungen angegeben werden',
         });
         error = true;
       }
@@ -287,7 +283,7 @@ export const AccountingForm = forwardRef<
         setError('service_provided_started_at', {
           type: 'validation',
           message:
-            'Das Ende Datum darf nur bei stundenbasierten Leistungen angegeben werden.',
+            'Das Ende Datum darf nur bei stundenbasierten Leistungen angegeben werden',
         });
         error = true;
       }
@@ -309,7 +305,7 @@ export const AccountingForm = forwardRef<
         setError('service_provided_started_at', {
           type: 'validation',
           message:
-            'Das Start Datum muss bei stundenbasierten Leistungen angegeben werden.',
+            'Das Start Datum muss bei stundenbasierten Leistungen angegeben werden',
         });
         error = true;
       }
@@ -318,7 +314,7 @@ export const AccountingForm = forwardRef<
         setError('service_provided_started_at', {
           type: 'validation',
           message:
-            'Das Ende Datum muss bei stundenbasierten Leistungen angegeben werden.',
+            'Das Ende Datum muss bei stundenbasierten Leistungen angegeben werden',
         });
         error = true;
       }
@@ -332,15 +328,15 @@ export const AccountingForm = forwardRef<
     if (
       data.service_provided_started_at &&
       data.service_provided_ended_at &&
-      data.service_provided_started_at > data.service_provided_ended_at
+      data.service_provided_started_at >= data.service_provided_ended_at
     ) {
       setError('service_provided_started_at', {
         type: 'validate',
-        message: 'Der Start muss vor oder gleich dem Ende sein.',
+        message: 'Der Start muss vor oder gleich dem Ende sein',
       });
       setError('service_provided_ended_at', {
         type: 'validation',
-        message: 'Das Ende muss nach oder gleich dem Start sein.',
+        message: 'Das Ende muss nach oder gleich dem Start sein',
       });
       return;
     }
@@ -361,7 +357,7 @@ export const AccountingForm = forwardRef<
       ) {
         setError('amount', {
           type: 'validation',
-          message: 'Die Menge muss ein Vielfaches von 0.01 sein.',
+          message: 'Die Menge muss ein Vielfaches von 0.01 sein',
         });
         error = true;
       }
@@ -378,7 +374,7 @@ export const AccountingForm = forwardRef<
       ) {
         setError('amount', {
           type: 'validation',
-          message: `Die Menge muss ein Vielfaches von ${applicationSettingsData.data.accounting_min_amount} sein.`,
+          message: `Die Menge muss ein Vielfaches von ${applicationSettingsData.data.accounting_min_amount} sein`,
         });
         error = true;
       }
@@ -406,7 +402,7 @@ export const AccountingForm = forwardRef<
       setError('amount', {
         type: 'validation',
         message:
-          'Die Menge darf den angegebenen Zeitbereich in Stunden nicht überschreiten.',
+          'Die Menge darf den angegebenen Zeitbereich in Stunden nicht überschreiten',
       });
       return;
     }
@@ -496,6 +492,7 @@ export const AccountingForm = forwardRef<
                     isVisible={showServiceProvidedStartedAtDatePicker}
                     mode='time'
                     date={value || new Date()}
+                    maximumDate={currentEnd}
                     display={Platform.OS === 'ios' ? 'spinner' : 'default'}
                     disabled={!isHourlyBasedService}
                     onConfirm={handleServiceProvidedStartedAtChange}
@@ -540,6 +537,7 @@ export const AccountingForm = forwardRef<
                     isVisible={showServiceProvidedEndedAtDatePicker}
                     mode='time'
                     date={value || new Date()}
+                    minimumDate={currentStart}
                     display={Platform.OS === 'ios' ? 'spinner' : 'default'}
                     disabled={!isHourlyBasedService}
                     onConfirm={handleServiceProvidedEndedAtChange}

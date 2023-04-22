@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Divider, Switch } from 'react-native-paper';
 import React, {
-  forwardRef,
+  forwardRef, useEffect,
   useImperativeHandle,
   useRef,
   useState,
@@ -21,6 +21,11 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { setServerErrors } from '../../utils/form';
 import { TextInput } from '../forms/text-input';
 import colors from 'tailwindcss/colors';
+import {useRouter} from "expo-router";
+import {useNotification} from "../../context/notification";
+import {useGetServiceTypes} from "../../api/serviceEndpoint";
+import {ListLoadingSkeleton} from "../lists/list-loading-skeleton";
+import {useGetVehicleKilometres} from "../../api/vehicleEndpoint";
 
 const LogbookFormSchema = z
   .object({
@@ -47,7 +52,7 @@ const LogbookFormSchema = z
   })
   .refine((data) => data.start_kilometres < data.end_kilometres, {
     path: ['start_kilometres'],
-    message: 'Die Start Kilometer müssen kleiner als die Ende Kilometer sein.',
+    message: 'Die Start Kilometer müssen kleiner als die Ende Kilometer sein',
   })
   .refine((data) => data.end_kilometres > data.start_kilometres, {
     path: ['end_kilometres'],
@@ -68,7 +73,7 @@ const LogbookFormSchema = z
     {
       path: ['end_kilometres'],
       message:
-        'Die Ende Kilometer müssen der Summe aus Start Kilometer und gefahrenen Kilometern entspreche',
+        'Die Ende Kilometer müssen der Summe aus Start Kilometer und gefahrenen Kilometern entsprechen',
     }
   )
   .refine(
@@ -98,6 +103,16 @@ export type LogbookFormApi = {
 
 export const LogbookForm = forwardRef<LogbookFormApi, LogbookFormProps>(
   ({ logbook, projects, vehicles, locations, onSubmit }, ref) => {
+    const router = useRouter();
+    const notification = useNotification();
+
+    const {
+      isLoading: vehicleKilometressDataIsLoading,
+      isError: vehicleKilometresDataIsError,
+      data: vehicleKilometresData,
+      error: vehicleKilometresDataError,
+    } = useGetVehicleKilometres();
+
     const projectSelectModalRef = useRef<BottomSheetModal>(null);
     const vehicleSelectModalRef = useRef<BottomSheetModal>(null);
     const originSelectModalRef = useRef<BottomSheetModal>(null);
@@ -162,11 +177,27 @@ export const LogbookForm = forwardRef<LogbookFormApi, LogbookFormProps>(
       setValue('destination', destination);
     };
 
+    const autofillRemainingValue = (start?: number, end?: number, driven?: number) => {
+      if(start && end && !driven && start < end) {
+        setValue('driven_kilometres', end-start);
+      }
+      else if(start && !end && driven) {
+        setValue('end_kilometres', start+driven);
+      }
+      else if(!start && end && driven) {
+        setValue('start_kilometres', end-driven);
+      }
+      else {
+        return;
+      }
+    }
+
     const {
       control,
       handleSubmit,
       setValue,
       setError,
+      watch,
       formState: { errors, isSubmitting },
     } = useForm<LogbookFormSchema>({
       reValidateMode: 'onSubmit',
@@ -186,6 +217,33 @@ export const LogbookForm = forwardRef<LogbookFormApi, LogbookFormProps>(
       },
     });
 
+    const currentVehicle =  watch('vehicle_id', null);
+    const currentStartKilometres = watch('start_kilometres', null);
+    const currentEndKilometres = watch('end_kilometres', null);
+    const currentDrivenKilometres = watch('driven_kilometres', null);
+
+    useEffect(() => {
+      const startValue = currentStartKilometres ? Number(currentStartKilometres) : null;
+      const endValue = currentEndKilometres ? Number(currentEndKilometres) : null;
+      const drivenValue = currentDrivenKilometres ? Number(currentDrivenKilometres) : null;
+
+      if(
+        (startValue && Number.isNaN(startValue)) ||
+        (endValue &&Number.isNaN(endValue)) ||
+        (drivenValue && Number.isNaN(drivenValue))) {
+        return;
+      }
+
+      autofillRemainingValue(startValue, endValue, drivenValue);
+    }, [currentStartKilometres, currentEndKilometres])
+
+    useEffect(() => {
+      if(currentVehicle && !currentStartKilometres && !(currentEndKilometres && currentDrivenKilometres)) {
+        const currentKilometres = vehicleKilometresData?.data.find(vehicleKilometres => vehicleKilometres.id === currentVehicle?.id);
+        setValue('start_kilometres', currentKilometres?.kilometres || null);
+      }
+    }, [currentVehicle])
+
     const submitRef = useRef(handleSubmit);
     submitRef.current = handleSubmit;
 
@@ -202,6 +260,22 @@ export const LogbookForm = forwardRef<LogbookFormApi, LogbookFormProps>(
       },
       []
     );
+
+    if (
+      vehicleKilometressDataIsLoading
+    ) {
+      return <ListLoadingSkeleton />;
+    }
+
+    if (
+      vehicleKilometresDataIsError
+    ) {
+      notification.showNotification(
+        'Es ist ein Fehler beim Laden der Daten aufgetreten.',
+        'danger'
+      );
+      return router.back();
+    }
 
     return (
       <BottomSheetModalProvider>

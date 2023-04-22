@@ -128,6 +128,7 @@ export const useCreateLogbookEntry = () => {
     },{
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: 'logbook' })
+        queryClient.invalidateQueries({ queryKey: ['vehicle', 'kilometres'] })
         queryClient.invalidateQueries({ queryKey: 'dashboard' })
       }
     }
@@ -152,6 +153,7 @@ export const useUpdateLogbookEntry = () => {
     },{
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: 'logbook' })
+        queryClient.invalidateQueries({ queryKey: ['vehicle', 'kilometres'] })
         queryClient.invalidateQueries({ queryKey: 'dashboard' })
       }
     }
@@ -171,6 +173,7 @@ export const useDestroyLogbookEntry = () => {
     },{
       onSuccess: () => {
         queryClient.invalidateQueries({ queryKey: 'logbook' })
+        queryClient.invalidateQueries({ queryKey: ['vehicle', 'kilometres'] })
         queryClient.invalidateQueries({ queryKey: 'dashboard' })
       }
     }
