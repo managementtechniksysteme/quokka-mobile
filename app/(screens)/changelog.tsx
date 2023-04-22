@@ -16,10 +16,10 @@ export default function ChangelogScreen() {
           <ChangelogHeader>v0.1.1-80325d5 (22.04.2023)</ChangelogHeader>
 
           <ChangelogEntry>
-            Felder bei der Fahrtenbuch Eingabe werden nun automatische basierend auf vorhandenden Werten ausgefüllt.
+            Felder bei der Fahrtenbuch Eingabe werden nun automatisch basierend auf vorhandenden Werten ausgefüllt.
           </ChangelogEntry>
           <ChangelogEntry>
-            Versionshinweise wurden implementiert. Diese sind druch Drücken auf die Versionsnummer im Menü aufrufbar.
+            Versionshinweise wurden implementiert. Diese sind durch Drücken auf die Versionsnummer im Menü aufrufbar.
           </ChangelogEntry>
 
 
