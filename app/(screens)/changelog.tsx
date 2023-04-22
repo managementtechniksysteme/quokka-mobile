@@ -13,7 +13,7 @@ export default function ChangelogScreen() {
           <Text className='font-bold text-2xl'>Quokka Mobile Versionshinweise</Text>
 
 
-          <ChangelogHeader>v0.1.1-cc82946 (22.04.2023)</ChangelogHeader>
+          <ChangelogHeader>v0.1.1-80325d5 (22.04.2023)</ChangelogHeader>
 
           <ChangelogEntry>
             Felder bei der Fahrtenbuch Eingabe werden nun automatische basierend auf vorhandenden Werten ausgefüllt.
