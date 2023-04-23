@@ -33,15 +33,15 @@ const LogbookFormSchema = z
     driven_on: z.date(),
     start_kilometres: z.coerce
       .number()
-      .positive()
-      .multipleOf(1)
-      .or(z.literal('0')),
-    end_kilometres: z.coerce.number().positive().multipleOf(1),
-    driven_kilometres: z.coerce.number().positive().multipleOf(1),
+      .positive({message: 'Kilometer müssen mindestens 0 sein.'})
+      .multipleOf(1, {message: 'Kilometer müssen ein Vielfaches von 1 sein.'})
+      .or(z.literal('0', )),
+    end_kilometres: z.coerce.number().positive({message: 'Kilometer müssen mindestens 1 sein.'}).multipleOf(1, {message: 'Kilometer müssen ein Vielfaches von 1 sein.'}),
+    driven_kilometres: z.coerce.number().positive({message: 'Kilometer müssen mindestens 1 sein.'}).multipleOf(1, {message: 'Kilometer müssen ein Vielfaches von 1 sein.'}),
     litres_refuelled: z.coerce
       .number()
-      .positive()
-      .multipleOf(1)
+      .positive({message: 'Liter müssen mindestens 1 sein.'})
+      .multipleOf(1, {message: 'Liter müssen ein Vielfaches von 1 sein.'})
       .or(z.literal(''))
       .or(z.null()),
     origin: SelectOptionDataSchema,

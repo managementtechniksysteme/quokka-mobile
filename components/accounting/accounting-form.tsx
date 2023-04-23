@@ -41,7 +41,7 @@ const AccountingFormSchema = z.object({
   service_provided_on: z.date(),
   service_provided_started_at: z.date().nullable(),
   service_provided_ended_at: z.date().nullable(),
-  amount: z.coerce.number().positive().multipleOf(0.01),
+  amount: z.coerce.number().positive({message: 'Mange muss positiv sein.'}),
   project_id: SelectOptionDataSchema,
   comment: z.string().nullable(),
 });
