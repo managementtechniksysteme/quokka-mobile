@@ -465,15 +465,6 @@ export const LogbookForm = forwardRef<LogbookFormApi, LogbookFormProps>(
                       onChangeText={(text) => onChange(text)}
                       onBlur={onBlur}
                       left={<Feather name='map-pin' size={24} />}
-                      right={
-                        <Pressable onPress={() => handleOriginChange(null)}>
-                          <Feather
-                            color={colors.slate['400']}
-                            name='x'
-                            size={24}
-                          />
-                        </Pressable>
-                      }
                     />
                   </>
                 )}
@@ -506,17 +497,6 @@ export const LogbookForm = forwardRef<LogbookFormApi, LogbookFormProps>(
                       onChangeText={(text) => onChange(text)}
                       onBlur={onBlur}
                       left={<Feather name='map-pin' size={24} />}
-                      right={
-                        <Pressable
-                          onPress={() => handleDestinationChange(null)}
-                        >
-                          <Feather
-                            color={colors.slate['400']}
-                            name='x'
-                            size={24}
-                          />
-                        </Pressable>
-                      }
                     />
                   </>
                 )}
