@@ -102,10 +102,10 @@ export function Provider(props: AuthProviderProps) {
   useProtectedRoute(tokens);
 
   useEffect(() => {
-    if(props.tokens) {
+    if (props.tokens) {
       storeTokens(props.tokens.token, props.tokens.refreshToken);
     }
-  }, [])
+  }, []);
 
   return (
     <AuthContext.Provider

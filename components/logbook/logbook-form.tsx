@@ -6,7 +6,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Divider, Switch } from 'react-native-paper';
 import React, {
-  forwardRef, useEffect,
+  forwardRef,
+  useEffect,
   useImperativeHandle,
   useRef,
   useState,
@@ -21,11 +22,10 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { setServerErrors } from '../../utils/form';
 import { TextInput } from '../forms/text-input';
 import colors from 'tailwindcss/colors';
-import {useRouter} from "expo-router";
-import {useNotification} from "../../context/notification";
-import {useGetServiceTypes} from "../../api/serviceEndpoint";
-import {ListLoadingSkeleton} from "../lists/list-loading-skeleton";
-import {useGetVehicleKilometres} from "../../api/vehicleEndpoint";
+import { useRouter } from 'expo-router';
+import { useNotification } from '../../context/notification';
+import { ListLoadingSkeleton } from '../lists/list-loading-skeleton';
+import { useGetVehicleKilometres } from '../../api/vehicleEndpoint';
 
 const LogbookFormSchema = z
   .object({
@@ -33,15 +33,25 @@ const LogbookFormSchema = z
     driven_on: z.date(),
     start_kilometres: z.coerce
       .number()
-      .positive({message: 'Kilometer müssen mindestens 0 sein.'})
-      .multipleOf(1, {message: 'Kilometer müssen ein Vielfaches von 1 sein.'})
-      .or(z.literal('0', )),
-    end_kilometres: z.coerce.number().positive({message: 'Kilometer müssen mindestens 1 sein.'}).multipleOf(1, {message: 'Kilometer müssen ein Vielfaches von 1 sein.'}),
-    driven_kilometres: z.coerce.number().positive({message: 'Kilometer müssen mindestens 1 sein.'}).multipleOf(1, {message: 'Kilometer müssen ein Vielfaches von 1 sein.'}),
+      .positive({ message: 'Kilometer müssen mindestens 0 sein.' })
+      .multipleOf(1, { message: 'Kilometer müssen ein Vielfaches von 1 sein.' })
+      .or(z.literal('0')),
+    end_kilometres: z.coerce
+      .number()
+      .positive({ message: 'Kilometer müssen mindestens 1 sein.' })
+      .multipleOf(1, {
+        message: 'Kilometer müssen ein Vielfaches von 1 sein.',
+      }),
+    driven_kilometres: z.coerce
+      .number()
+      .positive({ message: 'Kilometer müssen mindestens 1 sein.' })
+      .multipleOf(1, {
+        message: 'Kilometer müssen ein Vielfaches von 1 sein.',
+      }),
     litres_refuelled: z.coerce
       .number()
-      .positive({message: 'Liter müssen mindestens 1 sein.'})
-      .multipleOf(1, {message: 'Liter müssen ein Vielfaches von 1 sein.'})
+      .positive({ message: 'Liter müssen mindestens 1 sein.' })
+      .multipleOf(1, { message: 'Liter müssen ein Vielfaches von 1 sein.' })
       .or(z.literal(''))
       .or(z.null()),
     origin: SelectOptionDataSchema,
@@ -177,20 +187,21 @@ export const LogbookForm = forwardRef<LogbookFormApi, LogbookFormProps>(
       setValue('destination', destination);
     };
 
-    const autofillRemainingValue = (start?: number, end?: number, driven?: number) => {
-      if(start && end && !driven && start < end) {
-        setValue('driven_kilometres', end-start);
-      }
-      else if(start && !end && driven) {
-        setValue('end_kilometres', start+driven);
-      }
-      else if(!start && end && driven) {
-        setValue('start_kilometres', end-driven);
-      }
-      else {
+    const autofillRemainingValue = (
+      start?: number,
+      end?: number,
+      driven?: number
+    ) => {
+      if (start && end && !driven && start < end) {
+        setValue('driven_kilometres', end - start);
+      } else if (start && !end && driven) {
+        setValue('end_kilometres', start + driven);
+      } else if (!start && end && driven) {
+        setValue('start_kilometres', end - driven);
+      } else {
         return;
       }
-    }
+    };
 
     const {
       control,
@@ -217,32 +228,45 @@ export const LogbookForm = forwardRef<LogbookFormApi, LogbookFormProps>(
       },
     });
 
-    const currentVehicle =  watch('vehicle_id', null);
+    const currentVehicle = watch('vehicle_id', null);
     const currentStartKilometres = watch('start_kilometres', null);
     const currentEndKilometres = watch('end_kilometres', null);
     const currentDrivenKilometres = watch('driven_kilometres', null);
 
     useEffect(() => {
-      const startValue = currentStartKilometres ? Number(currentStartKilometres) : null;
-      const endValue = currentEndKilometres ? Number(currentEndKilometres) : null;
-      const drivenValue = currentDrivenKilometres ? Number(currentDrivenKilometres) : null;
+      const startValue = currentStartKilometres
+        ? Number(currentStartKilometres)
+        : null;
+      const endValue = currentEndKilometres
+        ? Number(currentEndKilometres)
+        : null;
+      const drivenValue = currentDrivenKilometres
+        ? Number(currentDrivenKilometres)
+        : null;
 
-      if(
+      if (
         (startValue && Number.isNaN(startValue)) ||
-        (endValue &&Number.isNaN(endValue)) ||
-        (drivenValue && Number.isNaN(drivenValue))) {
+        (endValue && Number.isNaN(endValue)) ||
+        (drivenValue && Number.isNaN(drivenValue))
+      ) {
         return;
       }
 
       autofillRemainingValue(startValue, endValue, drivenValue);
-    }, [currentStartKilometres, currentEndKilometres])
+    }, [currentStartKilometres, currentEndKilometres]);
 
     useEffect(() => {
-      if(currentVehicle && !currentStartKilometres && !(currentEndKilometres && currentDrivenKilometres)) {
-        const currentKilometres = vehicleKilometresData?.data.find(vehicleKilometres => vehicleKilometres.id === currentVehicle?.id);
+      if (
+        currentVehicle &&
+        !currentStartKilometres &&
+        !(currentEndKilometres && currentDrivenKilometres)
+      ) {
+        const currentKilometres = vehicleKilometresData?.data.find(
+          (vehicleKilometres) => vehicleKilometres.id === currentVehicle?.id
+        );
         setValue('start_kilometres', currentKilometres?.kilometres || null);
       }
-    }, [currentVehicle])
+    }, [currentVehicle]);
 
     const submitRef = useRef(handleSubmit);
     submitRef.current = handleSubmit;
@@ -261,15 +285,11 @@ export const LogbookForm = forwardRef<LogbookFormApi, LogbookFormProps>(
       []
     );
 
-    if (
-      vehicleKilometressDataIsLoading
-    ) {
+    if (vehicleKilometressDataIsLoading) {
       return <ListLoadingSkeleton />;
     }
 
-    if (
-      vehicleKilometresDataIsError
-    ) {
+    if (vehicleKilometresDataIsError) {
       notification.showNotification(
         'Es ist ein Fehler beim Laden der Daten aufgetreten.',
         'danger'

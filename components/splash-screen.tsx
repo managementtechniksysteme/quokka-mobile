@@ -1,7 +1,6 @@
-import {ImageBackground, Text, View} from 'react-native';
+import {ImageBackground, View} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
 import splashBackground from '../assets/images/splash.png';
-import {Image} from "expo-image";
 
 export const SplashScreen = () => {
   return (

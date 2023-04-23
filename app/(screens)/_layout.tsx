@@ -96,7 +96,7 @@ export default function Layout() {
         options={{
           title: 'Versionshinweise',
           // hide changelogs from here because the version info is clickable
-          drawerItemStyle: { display: 'none' }
+          drawerItemStyle: { display: 'none' },
         }}
       />
     </Drawer>

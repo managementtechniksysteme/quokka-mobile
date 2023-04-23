@@ -1,14 +1,12 @@
-import { useAuth } from '../../context/auth';
 import { Feather } from '@expo/vector-icons';
 import { DrawerItem } from '@react-navigation/drawer';
 import { useEffect, useState } from 'react';
 import * as Updates from 'expo-updates';
-import { Text, View } from 'react-native';
-import colors from 'tailwindcss/colors';
 import { UpdateEvent } from 'expo-updates';
+import { View } from 'react-native';
+import colors from 'tailwindcss/colors';
 import { LoadingAnimation } from '../animations/loading-animation';
 import Animated, {
-  cancelAnimation,
   Easing,
   useAnimatedStyle,
   useSharedValue,

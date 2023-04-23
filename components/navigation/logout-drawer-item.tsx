@@ -1,7 +1,6 @@
 import { useAuth } from '../../context/auth';
 import { Feather } from '@expo/vector-icons';
 import { DrawerItem } from '@react-navigation/drawer';
-import colors from 'tailwindcss/colors';
 import { View } from 'react-native';
 
 export const LogoutDrawerItem = () => {

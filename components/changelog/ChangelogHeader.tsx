@@ -1,12 +1,14 @@
-import {ReactNode} from "react";
-import {Text} from "react-native";
+import { ReactNode } from 'react';
+import { Text } from 'react-native';
 
 type ChangelogHeaderPops = {
-  children: ReactNode
-}
+  children: ReactNode;
+};
 
-export const ChangelogHeader = ({children, ...rest}: ChangelogHeaderPops) => {
+export const ChangelogHeader = ({ children, ...rest }: ChangelogHeaderPops) => {
   return (
-    <Text className='font-bold text-lg mt-4' {...rest}>{children}</Text>
-  )
-}
+    <Text className='mt-4 text-lg font-bold' {...rest}>
+      {children}
+    </Text>
+  );
+};

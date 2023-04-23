@@ -1,9 +1,9 @@
 import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
-import {Slot, useRouter} from 'expo-router';
+import {Slot} from 'expo-router';
 import {Provider as AuthProvider, Tokens} from "../context/auth";
 import {Provider as UserProvider} from "../context/user";
 import * as SecureStore from "expo-secure-store";
-import {useCallback, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {QueryClient, QueryClientProvider} from "react-query";
 import i18next from "i18next";
 import {z} from "zod";

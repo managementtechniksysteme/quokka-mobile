@@ -1,9 +1,9 @@
-import {Platform} from "react-native";
+import { Platform } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
 
 export const setupPushNotificationChannels = async () => {
-  if(Platform.OS !== 'android') {
+  if (Platform.OS !== 'android') {
     return;
   }
 
@@ -30,7 +30,8 @@ export const setupPushNotificationChannels = async () => {
 
   await Notifications.setNotificationChannelAsync('construction-reports', {
     name: 'Bautagesberichte',
-    description: 'Benachrichtigungen zu Bautagesberichten (beteiligt, unterschrieben, ...)',
+    description:
+      'Benachrichtigungen zu Bautagesberichten (beteiligt, unterschrieben, ...)',
     importance: Notifications.AndroidImportance.MAX,
     vibrationPattern: [150],
   });
@@ -42,16 +43,21 @@ export const setupPushNotificationChannels = async () => {
     vibrationPattern: [150],
   });
 
-  await Notifications.setNotificationChannelAsync('flow-meter-inspection-reports', {
-    name: 'Prüfberichte für Durchflussmesseinrichtungen',
-    description: 'Benachrichtigungen zu Prüfberichten für Durchflussmesseinrichtungen (unterschrieben, ...)',
-    importance: Notifications.AndroidImportance.MAX,
-    vibrationPattern: [150],
-  });
+  await Notifications.setNotificationChannelAsync(
+    'flow-meter-inspection-reports',
+    {
+      name: 'Prüfberichte für Durchflussmesseinrichtungen',
+      description:
+        'Benachrichtigungen zu Prüfberichten für Durchflussmesseinrichtungen (unterschrieben, ...)',
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [150],
+    }
+  );
 
   await Notifications.setNotificationChannelAsync('additions-reports', {
     name: 'Regieberichte',
-    description: 'Benachrichtigungen zu Regieberichten (beteiligt, unterschrieben, ...)',
+    description:
+      'Benachrichtigungen zu Regieberichten (beteiligt, unterschrieben, ...)',
     importance: Notifications.AndroidImportance.MAX,
     vibrationPattern: [150],
   });
@@ -69,11 +75,10 @@ export const setupPushNotificationChannels = async () => {
     importance: Notifications.AndroidImportance.MAX,
     vibrationPattern: [150],
   });
-
-}
+};
 
 export const getPushNotificationToken = async () => {
-  if(!Device.isDevice) {
+  if (!Device.isDevice) {
     console.log('Must use physical device for Push Notifications');
     return null;
   }
@@ -82,7 +87,7 @@ export const getPushNotificationToken = async () => {
   let finalStatus = existingStatus;
 
   if (existingStatus !== 'granted') {
-    const {status} = await Notifications.requestPermissionsAsync();
+    const { status } = await Notifications.requestPermissionsAsync();
     finalStatus = status;
   }
 
@@ -95,5 +100,4 @@ export const getPushNotificationToken = async () => {
   console.log(token);
 
   return token;
-
-}
+};
