@@ -18,6 +18,7 @@ import {refreshTokens} from "../api/config/client";
 import {prefetchUser} from "../api/userEndpoint";
 import * as ExpoSplashScreen from 'expo-splash-screen';
 import {SplashScreen} from "../components/splash-screen";
+import {setupPushNotificationChannels} from "../utils/notifications";
 
 const MIN_SPLASH_DURATION = 3000;
 
@@ -87,6 +88,8 @@ export default function Layout() {
     await Font.loadAsync(Feather.font);
     await Font.loadAsync(MaterialCommunityIcons.font);
     await Font.loadAsync(Ionicons.font);
+
+    await setupPushNotificationChannels();
 
     const refreshToken = await SecureStore.getItemAsync('refreshToken');
 
