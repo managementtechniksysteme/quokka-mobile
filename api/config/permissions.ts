@@ -87,6 +87,18 @@ export const UserPermissionSchema = z.enum([
   'construction-reports.get-signature.other',
   'construction-reports.approve',
 
+  // delivery notes
+  'delivery-notes.view',
+  'delivery-notes.create',
+  'delivery-notes.update',
+  'delivery-notes.delete',
+  'delivery-notes.email',
+  'delivery-notes.createpdf',
+  'delivery-notes.send-signature-request',
+  'delivery-notes.send-download-request',
+  'delivery-notes.get-signature',
+  'delivery-notes.approve',
+
   // employees
   'employees.view',
   'employees.create',
