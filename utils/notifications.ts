@@ -36,6 +36,14 @@ export const setupPushNotificationChannels = async () => {
     vibrationPattern: [150],
   });
 
+  await Notifications.setNotificationChannelAsync('delivery-notes', {
+    name: 'Lieferscheine',
+    description:
+      'Benachrichtigungen zu Lieferscheinen (unterschrieben, ...)',
+    importance: Notifications.AndroidImportance.MAX,
+    vibrationPattern: [150],
+  });
+
   await Notifications.setNotificationChannelAsync('inspection-reports', {
     name: 'Prüfberichte',
     description: 'Benachrichtigungen zu Prüfberichten (unterschrieben, ...)',
