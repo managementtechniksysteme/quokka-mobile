@@ -2,7 +2,7 @@ import Constants from 'expo-constants';
 import { z } from 'zod';
 
 export const API_BASE_URL =
-  Constants.expoConfig?.extra?.apiUrl || 'http://quokka.linkto.ms/api';
+  Constants.expoConfig?.extra?.apiUrl || 'https://quokka.linkto.ms/api';
 
 export const commonHeaders = {
   Accept: 'application/json',
